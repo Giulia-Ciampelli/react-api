@@ -6,9 +6,6 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 // modulo stile
 import style from '../components/Main.module.css';
 
-// finto db
-import posts from '../data/posts.js';
-
 // array post iniziali
 const initialPostsData = {
     name: '',
@@ -21,7 +18,7 @@ const initialPostsData = {
 
 export default function Main() {
     const [postsData, setPostsData] = useState(initialPostsData);
-    const [postList, setPostList] = useState(posts); // variabile db
+    const [postList, setPostList] = useState([]); // variabile fetch
 
     // funzione per aggiungere un post nuovo
     function addPost(e) {
