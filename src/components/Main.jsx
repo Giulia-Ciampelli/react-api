@@ -179,7 +179,7 @@ export default function Main() {
 
                         {/* #region output */}
                         <ul>
-                            {postList?.data ? postList?.data.map((post, index) => <li key={index}>
+                            {postList.data ? postList.data.map((post, index) => <li key={index}>
                                 <div className={style.card}>
                                     <p>
                                         {post.title}

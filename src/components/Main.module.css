@@ -5,13 +5,20 @@ main {
 
         .row {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
 
             form {
+                display: flex;
+                flex-direction: column;
                 margin-top: 2rem;
 
                 .addPost {
+                    display: flex;
+                    flex-direction: column;
+                    align-self: center;
                     padding: 2rem 0;
+                    width: 50%;
 
                     input,
                     textarea,
@@ -32,6 +39,8 @@ main {
                 }
 
                 ul {
+                    width: 80%;
+                    margin: auto;
 
                     li {
                         display: flex;
@@ -39,6 +48,9 @@ main {
                         justify-content: center;
                         align-items: center;
                         list-style: none;
+                        background-color: var(--violet-colour);
+                        border-radius: .5rem;
+                        margin: 2rem;
 
                         .card {
                             display: flex;
