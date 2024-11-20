@@ -1,5 +1,5 @@
 // importazioni
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,6 +19,18 @@ const initialPostsData = {
 export default function Main() {
     const [postsData, setPostsData] = useState(initialPostsData);
     const [postList, setPostList] = useState([]); // variabile fetch
+
+    // funzione fetch
+    function fetchData(url = 'http://localhost:3000/posts') {
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
+    }
+
+    // stateEffect per usare fetchData
+    useEffect(fetchData, []);
 
     // funzione per aggiungere un post nuovo
     function addPost(e) {
