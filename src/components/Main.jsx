@@ -22,12 +22,12 @@ export default function Main() {
     // funzione fetch
     function fetchData(url = 'http://localhost:3000/posts') {
         fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
 
-            setPostList(data);
-        })
+                setPostList(data);
+            })
     }
 
     // stateEffect per usare fetchData al caricamento della pagina
@@ -181,9 +181,9 @@ export default function Main() {
                         <ul>
                             {postList.data ? postList.data.map((post, index) => <li key={index}>
                                 <div className={style.card}>
-                                    <p>
+                                    <h2>
                                         {post.title}
-                                    </p>
+                                    </h2>
                                     <img src={`http://localhost:3000/${post.image}`} alt={post.title} />
                                     <p>
                                         {post.content}
@@ -191,9 +191,14 @@ export default function Main() {
                                     <p>
                                         {post.category}
                                     </p>
-                                    <p>
-                                        {post.tags}
-                                    </p>
+                                    <div className={style.tags}>
+                                        <h2>
+                                            Tags:
+                                        </h2>
+                                        <p>
+                                            {post.tags.join(', ')}
+                                        </p>
+                                    </div>
                                     <p>
                                         {post.public ? 'Post pubblico' : 'Post privato'}
                                     </p>
