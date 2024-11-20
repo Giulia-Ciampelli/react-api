@@ -62,7 +62,7 @@ export default function Main() {
                 setPostsData(initialPostsData);
             })
             .catch(err => {
-                console.error('Error adding post', err);  
+                console.error('Error adding post', err);
             })
     }
 
@@ -80,13 +80,25 @@ export default function Main() {
     function handleTrashPost(e) {
 
         // trovare post giusto
-        const postIndexTrash = Number(e.target.getAttribute('data-index'));
+        const postIndexTrash = e.target.getAttribute('data-slug');
 
-        // eliminare con filter
-        const newPosts = postList.filter((index) => index != postIndexTrash);
+        // richiesta DELETE al backend
+        fetch(`http://localhost:3000/posts/${postIndexTrash}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Post deleted', data);
 
-        // aggiornamento UI
-        setPostList(newPosts);
+                // eliminare con filter
+                const newPosts = postList.filter(post => post.slug !== postIndexTrash);
+
+                // aggiornamento UI
+                setPostList(newPosts);
+            })
+            .catch(err => {
+                console.error('Error deleting post', err);
+            })
     }
 
     return (
