@@ -51,6 +51,7 @@ main {
                         background-color: var(--violet-colour);
                         border-radius: .5rem;
                         margin: 2rem;
+                        padding: 2rem;
 
                         .card {
                             display: flex;

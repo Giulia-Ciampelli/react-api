@@ -184,7 +184,7 @@ export default function Main() {
                                     <p>
                                         {post.title}
                                     </p>
-                                    <img src={post.image} alt={post.title} />
+                                    <img src={`http://localhost:3000/${post.image}`} alt={post.title} />
                                     <p>
                                         {post.content}
                                     </p>
