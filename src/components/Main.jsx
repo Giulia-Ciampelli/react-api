@@ -17,7 +17,7 @@ const initialPostsData = {
 };
 
 export default function Main() {
-    const [postsData, setPostsData] = useState(initialPostsData);
+    const [postsData, setPostsData] = useState(initialPostsData); // variabile per aggiungere post
     const [postList, setPostList] = useState([]); // variabile fetch
 
     // funzione fetch
@@ -26,10 +26,12 @@ export default function Main() {
         .then(res => res.json())
         .then(data => {
             console.log(data);
+
+            setPostList(data);
         })
     }
 
-    // stateEffect per usare fetchData
+    // stateEffect per usare fetchData al caricamento della pagina
     useEffect(fetchData, []);
 
     // funzione per aggiungere un post nuovo
@@ -178,14 +180,14 @@ export default function Main() {
 
                         {/* #region output */}
                         <ul>
-                            {postList.map((post, index) => <li key={index}>
+                            {postList?.data ? postList?.data.map((post, index) => <li key={index}>
                                 <div className={style.card}>
                                     <p>
-                                        {post.name}
+                                        {post.title}
                                     </p>
-                                    <img src={post.image} alt={post.name} />
+                                    <img src={post.image} alt={post.title} />
                                     <p>
-                                        {post.description}
+                                        {post.content}
                                     </p>
                                     <p>
                                         {post.category}
@@ -200,7 +202,7 @@ export default function Main() {
                                 <button onClick={handleTrashPost} data-index={index}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
-                            </li>)}
+                            </li>) : <p>No posts yet</p>}
                         </ul>
                         {/* #endregion output */}
                     </form>
