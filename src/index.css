@@ -1,0 +1,49 @@
+/* stile globale */
+
+/* #region common */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-colour: #121619;
+  --light-colour: #D7CEB2;
+  --violet-colour: #78586F;
+  --teal-colour: #3E8989;
+  --red-colour: #D44D5C;
+}
+
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: var(--dark-colour);
+  background-color: var(--light-colour);
+}
+
+/* #endregion common */
+
+/* #region header */
+header {
+  background-color: var(--violet-colour);
+  padding: 1rem;
+
+  h1 {
+    text-align: center;
+  }
+}
+
+/* #endregion header */
+
+/* #region footer */
+footer {
+  background-color: var(--dark-colour);
+  padding: 2rem;
+
+  p {
+    text-align: center;
+    color: var(--light-colour);
+  }
+}
+
+/* #endregion footer */
