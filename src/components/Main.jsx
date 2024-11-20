@@ -40,17 +40,30 @@ export default function Main() {
 
         // clonazione oggetto
         const newPost = {
-            id: Date.now(),
-            ...postsData
+            title: postsData.name,
+            slug: postsData.slug,
+            content: postsData.content,
+            image: postsData.image,
+            tags: postsData.tags
         };
 
-        // aggiornamento UI
-        setPostList([
-            newPost,
-            ...postList
-        ]);
+        // richiesta POST al backend
+        fetch('http://localhost:3000/posts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newPost)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Post added', data);
 
-        setPostsData(initialPostsData);
+                fetchData();
+
+                setPostsData(initialPostsData);
+            })
+            .catch(err => {
+                console.error('Error adding post', err);  
+            })
     }
 
     // funzione onChange
