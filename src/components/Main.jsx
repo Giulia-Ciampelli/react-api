@@ -8,12 +8,11 @@ import style from '../components/Main.module.css';
 
 // array post iniziali
 const initialPostsData = {
-    name: '',
+    title: '',
+    slug: '',
+    content: '',
     image: '',
-    description: '',
-    category: '', // *modifica temporanea?
-    tags: [],
-    public: false
+    tags: []
 };
 
 export default function Main() {
