@@ -94,7 +94,10 @@ export default function Main() {
                 const newPosts = postList.filter(post => post.slug !== postIndexTrash);
 
                 // aggiornamento UI
-                setPostList(newPosts);
+                setPostList({
+                    ...postList,
+                    data: newPosts
+                });
             })
             .catch(err => {
                 console.error('Error deleting post', err);
@@ -228,7 +231,9 @@ export default function Main() {
                                         {post.public ? 'Post pubblico' : 'Post privato'}
                                     </p>
                                 </div>
-                                <button onClick={handleTrashPost} data-index={index}>
+
+                                {/* RICORDA: inserire sempre type=button per bottoni non per POST, o va in submit per default */}
+                                <button type="button" onClick={handleTrashPost} data-slug={post.slug}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
                             </li>) : <p>No posts yet</p>}
