@@ -39,12 +39,17 @@ export default function Main() {
         console.log('form sent', postsData);
 
         // generazione automatica di slug
-        
+        let newSlug = postsData.slug;
+
+        // .toLowerCase(), .replace()
+        if(!newSlug) {
+            newSlug=postsData.name.toLowerCase().replace(/\s+/g, '-');
+        }
 
         // clonazione oggetto
         const newPost = {
             title: postsData.name,
-            slug: postsData.slug,
+            slug: newSlug,
             content: postsData.content,
             image: postsData.image,
             tags: postsData.tags
