@@ -26,7 +26,7 @@ export default function Main() {
             .then(data => {
                 console.log(data);
 
-                setPostList(data);
+                setPostList(data.data);
             })
     }
 
@@ -82,6 +82,14 @@ export default function Main() {
         // trovare post giusto
         const postIndexTrash = e.target.getAttribute('data-slug');
 
+        // test per capire se trova lo slug o meno (errore DELETE null)
+        console.log('Post to delete:', postIndexTrash);
+        
+        if(!postIndexTrash) {
+            console.error('No slug found!');
+            return;
+        }
+
         // richiesta DELETE al backend
         fetch(`http://localhost:3000/posts/${postIndexTrash}`, {
             method: 'DELETE',
@@ -95,8 +103,7 @@ export default function Main() {
 
                 // aggiornamento UI
                 setPostList({
-                    ...postList,
-                    data: newPosts
+                    newPosts
                 });
             })
             .catch(err => {
@@ -207,7 +214,7 @@ export default function Main() {
 
                         {/* #region output */}
                         <ul>
-                            {postList.data ? postList.data.map((post, index) => <li key={index}>
+                            {postList.length ? postList.map((post, index) => <li key={index}>
                                 <div className={style.card}>
                                     <h2>
                                         {post.title}
