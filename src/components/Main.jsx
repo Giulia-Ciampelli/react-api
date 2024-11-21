@@ -39,17 +39,17 @@ export default function Main() {
         console.log('form sent', postsData);
 
         // generazione automatica di slug
-        let newSlug = postsData.slug;
+        const newSlug = postsData.slug;
 
         // .toLowerCase(), .replace()
-        if(!newSlug) {
-            newSlug=postsData.name.toLowerCase().replace(/\s+/g, '-');
+        if (!newSlug) {
+            newSlug = postsData.title.toLowerCase().replace(/\s+/g, '-');
         }
 
         // clonazione oggetto
         const newPost = {
-            title: postsData.name,
-            slug: newSlug,
+            title: postsData.title,
+            slug: newSlug || postsData.slug,
             content: postsData.content,
             image: postsData.image,
             tags: postsData.tags
@@ -92,8 +92,8 @@ export default function Main() {
 
         // test per capire se trova lo slug o meno (errore DELETE null)
         console.log('Post to delete:', postIndexTrash);
-        
-        if(!postIndexTrash) {
+
+        if (!postIndexTrash) {
             console.error('No slug found!');
             return;
         }
@@ -110,9 +110,7 @@ export default function Main() {
                 const newPosts = postList.filter(post => post.slug !== postIndexTrash);
 
                 // aggiornamento UI
-                setPostList({
-                    newPosts
-                });
+                setPostList(newPosts);
             })
             .catch(err => {
                 console.error('Error deleting post', err);
@@ -131,7 +129,7 @@ export default function Main() {
                             {/* input nome */}
                             <input type="text"
                                 id="textInput"
-                                name="name"
+                                name="title"
                                 placeholder="Titolo nuovo post"
                                 value={postsData.name}
                                 onChange={handleFormField}
@@ -228,7 +226,11 @@ export default function Main() {
                             {postList.length ? postList.map((post, index) => <li key={index}>
                                 <div className={style.card}>
                                     <h2>
-                                        {post.title}
+
+                                        {/* prova: aggiungi un modo per accedere allo slug giusto */}
+                                        <a href={`http://localhost:3000/posts/${post.slug}`}>
+                                            {post.title}
+                                        </a>
                                     </h2>
                                     <img src={`http://localhost:3000/${post.image}`} alt={post.title} />
                                     <p>
@@ -251,7 +253,7 @@ export default function Main() {
                                 </div>
 
                                 {/* RICORDA: inserire sempre type=button per bottoni non per POST, o va in submit per default */}
-                                <button type="button" onClick={handleTrashPost} data-slug={post.slug}>
+                                <button type="button" onClick={handleTrashPost} data-slug={post.slug || newSlug}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
                             </li>) : <p>No posts yet</p>}
