@@ -21,6 +21,11 @@ body {
   background-color: var(--light-colour);
 }
 
+a {
+  text-decoration: none;
+  color: var(--light-colour);
+}
+
 /* #endregion common */
 
 /* #region header */
