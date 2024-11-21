@@ -12,8 +12,24 @@ const initialPostsData = {
     slug: '',
     content: '',
     image: '',
-    tags: []
+    tags: [
+        "Dolci",
+        "Torte",
+        "Ricette vegetariane",
+        "Ricette al forno",
+        "Antipasti",
+        "Primi piatti",
+        "Dolci veloci",
+        "Ricette veloci",
+        "Dolci al cioccolato", // * pool di tag temporaneo, trovare un modo per sistemarlo bene
+    ]
 };
+
+// * SCALETTA *:
+// - crea router anche su lato React
+// - crea componente per slug
+// - collega componente al router
+// - decidi il metodo HTTP da usare e applica la logica giusta
 
 export default function Main() {
     const [postsData, setPostsData] = useState(initialPostsData); // variabile per aggiungere post
