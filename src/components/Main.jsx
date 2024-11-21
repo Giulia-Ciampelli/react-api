@@ -38,6 +38,9 @@ export default function Main() {
         e.preventDefault();
         console.log('form sent', postsData);
 
+        // generazione automatica di slug
+        
+
         // clonazione oggetto
         const newPost = {
             title: postsData.name,
@@ -126,7 +129,8 @@ export default function Main() {
                                 name="name"
                                 placeholder="Titolo nuovo post"
                                 value={postsData.name}
-                                onChange={handleFormField} />
+                                onChange={handleFormField}
+                                required />
 
                             {/* input immagine */}
                             <input type="text"
@@ -134,7 +138,8 @@ export default function Main() {
                                 name="image"
                                 placeholder="URL immagine"
                                 value={postsData.image}
-                                onChange={handleFormField} />
+                                onChange={handleFormField}
+                                required />
 
                             {/* input contenuto */}
                             <textarea
@@ -142,7 +147,8 @@ export default function Main() {
                                 name="description"
                                 placeholder="Contenuto post..."
                                 value={postsData.description}
-                                onChange={handleFormField}>
+                                onChange={handleFormField}
+                                required>
                             </textarea>
 
                             {/* input select categoria */}
