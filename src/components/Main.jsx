@@ -12,17 +12,7 @@ const initialPostsData = {
     slug: '',
     content: '',
     image: '',
-    tags: [
-        "Dolci",
-        "Torte",
-        "Ricette vegetariane",
-        "Ricette al forno",
-        "Antipasti",
-        "Primi piatti",
-        "Dolci veloci",
-        "Ricette veloci",
-        "Dolci al cioccolato", // * pool di tag temporaneo, trovare un modo per sistemarlo bene
-    ]
+    tags: []
 };
 
 export default function Main() {
@@ -154,9 +144,9 @@ export default function Main() {
                             {/* input contenuto */}
                             <textarea
                                 id="descInput"
-                                name="description"
+                                name="content"
                                 placeholder="Contenuto post..."
-                                value={postsData.description}
+                                value={postsData.content}
                                 onChange={handleFormField}
                                 required>
                             </textarea>
@@ -192,7 +182,7 @@ export default function Main() {
                                 value={postsData.tags}
                                 onChange={handleFormField} />
                             <label>
-                                Tag1
+                                Dolci
                             </label>
                             <input type="checkbox"
                                 id="checkInput2"
@@ -200,7 +190,7 @@ export default function Main() {
                                 value={postsData.tags}
                                 onChange={handleFormField} />
                             <label>
-                                Tag2
+                                Torte
                             </label>
                             <input type="checkbox"
                                 id="checkInput3"
@@ -208,7 +198,55 @@ export default function Main() {
                                 value={postsData.tags}
                                 onChange={handleFormField} />
                             <label>
-                                Tag3
+                                Ricette vegetariane
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput1"
+                                name="tag1"
+                                value={postsData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Ricette al forno
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput2"
+                                name="tag2"
+                                value={postsData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Antipasti
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput3"
+                                name="tag3"
+                                value={postsData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Primi piatti
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput1"
+                                name="tag1"
+                                value={postsData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Dolci veloci
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput2"
+                                name="tag2"
+                                value={postsData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Ricette veloci
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput3"
+                                name="tag3"
+                                value={postsData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Dolci al cioccolato
                             </label>
 
                             {/* input pubblica o meno */}
