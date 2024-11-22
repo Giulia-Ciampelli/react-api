@@ -48,6 +48,7 @@ export default function Main() {
         }
 
         // e se uso due titoli uguali?
+        // opzioni: creazione di stringa random, o aggiunta allo slug
 
         // clonazione oggetto
         const newPost = {
@@ -334,7 +335,7 @@ export default function Main() {
                                             Tags:
                                         </h2>
                                         <p>
-                                            {post.tags.join(', ')}
+                                            {post.tags}
                                         </p>
                                     </div>
                                     <p>
