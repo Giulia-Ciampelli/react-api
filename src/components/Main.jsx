@@ -55,7 +55,7 @@ export default function Main() {
         console.log('form sent', postsData);
 
         // generazione automatica di slug
-        const newSlug = postsData.slug;
+        let newSlug = postsData.slug;
 
         // .toLowerCase(), .replace()
         if (!newSlug) {
