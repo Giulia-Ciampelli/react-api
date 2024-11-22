@@ -12,7 +12,8 @@ const initialPostsData = {
     slug: '',
     content: '',
     image: '',
-    tags: []
+    tags: [],
+    public: false
 };
 
 export default function Main() {
@@ -54,7 +55,8 @@ export default function Main() {
             slug: newSlug || postsData.slug,
             content: postsData.content,
             image: postsData.image,
-            tags: postsData.tags
+            tags: postsData.tags,
+            public: postsData.public
         };
 
         // richiesta POST al backend
@@ -67,7 +69,10 @@ export default function Main() {
             .then(data => {
                 console.log('Post added', data);
 
-                fetchData();
+                setPostList([
+                    ...postList,
+                    data.data
+                ]);
 
                 setPostsData(initialPostsData);
             })
@@ -78,13 +83,40 @@ export default function Main() {
 
     // funzione onChange
     function handleFormField(e) {
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-
+        const { name, type, checked, value } = e.target;
+    
+        // funzione per checkbox public
+        const handleCheckboxChange = (name, checkedValue) => {
+            if (name === "public") {
+                return { public: checkedValue };
+            }
+    
+            // funzione per altre checkbox
+            const updatedTags = checkedValue ? [...postsData.tags, value] : postsData.tags.filter(tag => tag !== value);
+            return { tags: updatedTags };
+        };
+    
+        // funzione per altri input
+        const handleInputChange = (name, fieldValue) => {
+            return { [name]: fieldValue };
+        };
+    
+        // determina lo stato a seconda del tipo di input
+        let updatedState = {};
+    
+        if (type === 'checkbox') {
+            updatedState = handleCheckboxChange(name, checked);
+        }
+        else {
+            updatedState = handleInputChange(name, value);
+        }
+    
         setPostsData({
             ...postsData,
-            [e.target.name]: value
-        })
+            ...updatedState
+        });
     }
+    
 
     // funzione per cancellare post
     function handleTrashPost(slug) {
@@ -105,11 +137,8 @@ export default function Main() {
             .then(data => {
                 console.log('Post deleted', data);
 
-                // eliminare con filter
-                const newPosts = postList.filter(post => post.slug !== slug);
-
-                // aggiornamento UI
-                setPostList(newPosts);
+                // aggiornamento UI con filtro dentro
+                setPostList(postList.filter(post => post.slug !== slug));
             })
             .catch(err => {
                 console.error('Error deleting post', err);
@@ -186,7 +215,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput1"
                                         name="tag1"
-                                        value={postsData.tags}
+                                        value="Dolci"
+                                        checked={postsData.tags.includes("Dolci")}
                                         onChange={handleFormField} />
                                     Dolci
                                 </label>
@@ -194,7 +224,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput2"
                                         name="tag2"
-                                        value={postsData.tags}
+                                        value="Torte"
+                                        checked={postsData.tags.includes("Torte")}
                                         onChange={handleFormField} />
                                     Torte
                                 </label>
@@ -202,7 +233,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput3"
                                         name="tag3"
-                                        value={postsData.tags}
+                                        value="Ricette vegetariane"
+                                        checked={postsData.tags.includes("Ricette vegetariane")}
                                         onChange={handleFormField} />
                                     Ricette vegetariane
                                 </label>
@@ -210,7 +242,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput4"
                                         name="tag4"
-                                        value={postsData.tags}
+                                        value="Ricette al forno"
+                                        checked={postsData.tags.includes("Ricette al forno")}
                                         onChange={handleFormField} />
                                     Ricette al forno
                                 </label>
@@ -218,7 +251,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput5"
                                         name="tag5"
-                                        value={postsData.tags}
+                                        value="Antipasti"
+                                        checked={postsData.tags.includes("Antipasti")}
                                         onChange={handleFormField} />
                                     Antipasti
                                 </label>
@@ -226,7 +260,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput6"
                                         name="tag6"
-                                        value={postsData.tags}
+                                        value="Primi piatti"
+                                        checked={postsData.tags.includes("Primi piatti")}
                                         onChange={handleFormField} />
                                     Primi piatti
                                 </label>
@@ -234,7 +269,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput7"
                                         name="tag7"
-                                        value={postsData.tags}
+                                        value="Dolci veloci"
+                                        checked={postsData.tags.includes("Dolci veloci")}
                                         onChange={handleFormField} />
                                     Dolci veloci
                                 </label>
@@ -242,7 +278,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput8"
                                         name="tag8"
-                                        value={postsData.tags}
+                                        value="Ricette veloci"
+                                        checked={postsData.tags.includes("Ricette veloci")}
                                         onChange={handleFormField} />
                                     Ricette veloci
                                 </label>
@@ -250,7 +287,8 @@ export default function Main() {
                                     <input type="checkbox"
                                         id="checkInput9"
                                         name="tag9"
-                                        value={postsData.tags}
+                                        value="Dolci al cioccolato"
+                                        checked={postsData.tags.includes("Dolci al cioccolato")}
                                         onChange={handleFormField} />
                                     Dolci al cioccolato
                                 </label>
@@ -261,7 +299,7 @@ export default function Main() {
                                 <input type="checkbox"
                                     id="checkInputPublic"
                                     name="public"
-                                    value={postsData.public}
+                                    checked={postsData.public}
                                     onChange={handleFormField} />
                                 Post pubblico
                             </label>
