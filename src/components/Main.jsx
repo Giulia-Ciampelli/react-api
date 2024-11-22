@@ -85,39 +85,39 @@ export default function Main() {
     // funzione onChange
     function handleFormField(e) {
         const { name, type, checked, value } = e.target;
-    
+
         // funzione per checkbox public
         const handleCheckboxChange = (name, checkedValue) => {
             if (name === "public") {
                 return { public: checkedValue };
             }
-    
+
             // funzione per altre checkbox
             const updatedTags = checkedValue ? [...postsData.tags, value] : postsData.tags.filter(tag => tag !== value);
             return { tags: updatedTags };
         };
-    
+
         // funzione per altri input
         const handleInputChange = (name, fieldValue) => {
             return { [name]: fieldValue };
         };
-    
+
         // determina lo stato a seconda del tipo di input
         let updatedState = {};
-    
+
         if (type === 'checkbox') {
             updatedState = handleCheckboxChange(name, checked);
         }
         else {
             updatedState = handleInputChange(name, value);
         }
-    
+
         setPostsData({
             ...postsData,
             ...updatedState
         });
     }
-    
+
 
     // funzione per cancellare post
     function handleTrashPost(slug) {
@@ -335,7 +335,7 @@ export default function Main() {
                                             Tags:
                                         </h2>
                                         <p>
-                                            {post.tags}
+                                            {Array.isArray(post.tags) && post.tags.length > 0 ? post.tags.join(', ') : 'No tags available'}
                                         </p>
                                     </div>
                                     <p>
