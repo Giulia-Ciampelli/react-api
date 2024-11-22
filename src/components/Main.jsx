@@ -25,12 +25,6 @@ const initialPostsData = {
     ]
 };
 
-// * SCALETTA *:
-// - crea router anche su lato React
-// - crea componente per slug
-// - collega componente al router
-// - decidi il metodo HTTP da usare e applica la logica giusta
-
 export default function Main() {
     const [postsData, setPostsData] = useState(initialPostsData); // variabile per aggiungere post
     const [postList, setPostList] = useState([]); // variabile fetch
@@ -101,21 +95,18 @@ export default function Main() {
     }
 
     // funzione per cancellare post
-    function handleTrashPost(e) {
-
-        // trovare post giusto
-        const postIndexTrash = e.target.getAttribute('data-slug');
+    function handleTrashPost(slug) {
 
         // test per capire se trova lo slug o meno (errore DELETE null)
-        console.log('Post to delete:', postIndexTrash);
+        console.log('Post to delete:', slug);
 
-        if (!postIndexTrash) {
+        if (!slug) {
             console.error('No slug found!');
             return;
         }
 
         // richiesta DELETE al backend
-        fetch(`http://localhost:3000/posts/${postIndexTrash}`, {
+        fetch(`http://localhost:3000/posts/${slug}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -123,7 +114,7 @@ export default function Main() {
                 console.log('Post deleted', data);
 
                 // eliminare con filter
-                const newPosts = postList.filter(post => post.slug !== postIndexTrash);
+                const newPosts = postList.filter(post => post.slug !== slug);
 
                 // aggiornamento UI
                 setPostList(newPosts);
@@ -269,7 +260,7 @@ export default function Main() {
                                 </div>
 
                                 {/* RICORDA: inserire sempre type=button per bottoni non per POST, o va in submit per default */}
-                                <button type="button" onClick={handleTrashPost} data-slug={post.slug || newSlug}>
+                                <button type="button" data-slug={post.slug} onClick={() => handleTrashPost(post.slug)}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
                             </li>) : <p>No posts yet</p>}
